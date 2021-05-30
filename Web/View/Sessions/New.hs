@@ -17,6 +17,13 @@ instance View (NewView User) where
         </div>
     |]
 
+_renderForm :: User -> Html
+_renderForm user = formFor user [hsx|
+    {emailField #email}
+    {passwordField #passwordHash}
+    {submitButton {label = "Login"}}
+|]
+
 renderForm :: User -> Html
 renderForm user = [hsx|
     <form method="POST" action={CreateSessionAction}>
