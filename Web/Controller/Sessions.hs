@@ -20,9 +20,7 @@ instance Controller SessionsController where
             |> validateField #email isEmail
             |> validateField #passwordHash nonEmpty
             |> ifValid \case
-                Left user -> do
-                    setErrorMessage $ fromMaybe "no errors" $ getValidationFailure #email user
-                    render NewView {user = user}
+                Left user -> render NewView {user = user}
                 Right user -> do
                     hashed <- hashPassword (get #passwordHash user)
                     user <- user
