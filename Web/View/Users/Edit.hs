@@ -11,15 +11,20 @@ instance View EditView where
                 <li class="breadcrumb-item active">Edit User</li>
             </ol>
         </nav>
-        <h1>Edit User</h1>
+        <h1>Edit User ({get #name user})</h1>
         {renderForm user}
     |]
 
+roles :: [Role]
+roles = [Superadmin, Boss, Worker, Visitor]
+
+instance CanSelect Role where
+    type SelectValue Role = Role
+    selectValue a = a
+    selectLabel a = show a
+
 renderForm :: User -> Html
 renderForm user = formFor user [hsx|
-    {(textField #name)}
-    {(textField #email)}
-    {(textField #passwordHash)}
-    {(textField #failedLoginAttempts)}
+    {selectField #userRole roles}
     {submitButton}
 |]

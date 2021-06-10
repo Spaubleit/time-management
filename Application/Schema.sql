@@ -1,9 +1,11 @@
 -- Your database schema. Use the Schema Designer at http://localhost:8001/ to add some tables.
+CREATE TYPE roles AS ENUM ('superadmin', 'boss', 'worker', 'visitor');
 CREATE TABLE users (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
     name TEXT DEFAULT '' NOT NULL,
     email TEXT NOT NULL,
     password_hash TEXT NOT NULL,
     failed_login_attempts INT DEFAULT 0 NOT NULL,
-    locked_at TIMESTAMP WITH TIME ZONE DEFAULT NULL
+    locked_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,
+    user_role roles DEFAULT 'visitor' NOT NULL
 );

@@ -23,5 +23,6 @@ run = do
         |> set #name "admin"
         |> set #email adminEmail
         |> set #passwordHash passwordHash
+        |> set #userRole Superadmin 
         |> createRecord
     pure ()

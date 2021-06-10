@@ -17,12 +17,15 @@ defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
     {stylesheets}
     {scripts}
 
-    <title>App</title>
+    <title>Time management</title>
 </head>
 <body>
     <div class="container mt-4">
+        <header>test</header>
         {renderFlashMessages}
-        {inner}
+        <main>
+            {inner}
+        </main>
     </div>
 </body>
 |]

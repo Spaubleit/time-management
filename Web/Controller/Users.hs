@@ -24,6 +24,7 @@ instance Controller UsersController where
         render EditView { .. }
 
     action UpdateUserAction { userId } = do
+        accessDeniedUnless (get #userRole currentUser == Superadmin )
         user <- fetch userId
         user
             |> buildUser
@@ -37,13 +38,18 @@ instance Controller UsersController where
     action CreateUserAction = do
         let user = newRecord @User
         user
-            |> buildUser
+            |> fill @["email", "name", "passwordHash"]
+            |> validateField #email isEmail
+            |> validateField #passwordHash nonEmpty
             |> ifValid \case
-                Left user -> render NewView { .. } 
+                Left user -> render NewView { .. }
                 Right user -> do
-                    user <- user |> createRecord
-                    setSuccessMessage "User created"
-                    redirectTo UsersAction
+                    hashed <- hashPassword (get #passwordHash user)
+                    user <- user
+                        |> set #passwordHash hashed
+                        |> createRecord
+                    setSuccessMessage "You have registered successfully"
+                    redirectToPath "/"
 
     action DeleteUserAction { userId } = do
         user <- fetch userId
