@@ -58,4 +58,4 @@ instance Controller UsersController where
         redirectTo UsersAction
 
 buildUser user = user
-    |> fill @["name","email","passwordHash","failedLoginAttempts"]
+    |> fill @["name","email","passwordHash","failedLoginAttempts", "userRole"]

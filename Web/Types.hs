@@ -31,3 +31,13 @@ data UsersController
     | UpdateUserAction { userId :: !(Id User) }
     | DeleteUserAction { userId :: !(Id User) }
     deriving (Eq, Show, Data)
+    
+data ShiftsController
+    = ShiftsAction
+    | NewShiftAction
+    | ShowShiftAction { shiftId :: !(Id Shift) }
+    | CreateShiftAction
+    | EditShiftAction { shiftId :: !(Id Shift) }
+    | UpdateShiftAction { shiftId :: !(Id Shift) }
+    | DeleteShiftAction { shiftId :: !(Id Shift) }
+    deriving (Eq, Show, Data)

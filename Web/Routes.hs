@@ -9,3 +9,6 @@ instance AutoRoute StaticController
 instance AutoRoute SessionsController
 instance AutoRoute UsersController
 
+
+instance AutoRoute ShiftsController
+
