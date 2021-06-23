@@ -3,6 +3,8 @@ import IHP.RouterPrelude
 import Generated.Types
 import Web.Types
 
+instance AutoRoute DashboardController 
+
 -- Generator Marker
 instance AutoRoute StaticController
 

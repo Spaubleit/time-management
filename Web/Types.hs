@@ -8,6 +8,8 @@ import IHP.LoginSupport.Types
 data WebApplication = WebApplication deriving (Eq, Show)
 
 
+data DashboardController = DashboardAction deriving (Eq, Show, Data)
+
 data StaticController = WelcomeAction deriving (Eq, Show, Data)
 
 
