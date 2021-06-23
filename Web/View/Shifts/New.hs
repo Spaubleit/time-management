@@ -50,7 +50,7 @@ renderForm shift users = formFor shift [hsx|
     {(dateField #start)}
     {(textField #shiftInterval)}
     {(textField #duration)}
-    {renderSelect users}
+    <!-- {renderSelect users} -->
     {submitButton}
 |]
 
@@ -66,5 +66,5 @@ renderSelect users = [hsx|
 
 renderOption :: User -> Html
 renderOption user = [hsx|
-    <option value="{get #id user}">{get #name user}</option>
+    <option value={get #name user}>{get #name user}</option>
 |]

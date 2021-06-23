@@ -10,24 +10,69 @@ import Web.Types
 import Web.Routes
 
 defaultLayout :: Html -> Html
-defaultLayout inner = H.docTypeHtml ! A.lang "en" $ [hsx|
-<head>
-    {metaTags}
+defaultLayout inner = do 
+    let x = currentUser 
+    H.docTypeHtml ! A.lang "en" $ [hsx|
+        <head>
+            {metaTags}
 
-    {stylesheets}
-    {scripts}
+            {stylesheets}
+            {scripts}
 
-    <title>Time management</title>
-</head>
-<body>
-    <div class="container mt-4">
-        <header>test</header>
-        {renderFlashMessages}
-        <main>
-            {inner}
-        </main>
-    </div>
-</body>
+            <title>Time management</title>
+        </head>
+        <body>
+            <div class="container mt-4">
+                <header>
+                    <div class="navbar mr-auto">
+                        <ul class="navbar-nav">
+                            <li class="navbar-item">
+                                <a href="/">Home</a>
+                            </li>
+                        </ul>
+                        {userDropdown currentUserOrNothing}
+                    </div>
+                </header>
+                {renderFlashMessages}
+                <main>
+                    {inner}
+                </main>
+            </div>
+        </body>
+    |]
+
+userDropdown :: Maybe User -> Html 
+userDropdown (Just user) = [hsx|
+    <a class="dropdown" href="#">
+        <button 
+            class="btn dropdown-toggle" 
+            type="button"
+            id="menuButton"
+            data-toggle="dropdown"
+        >
+            Not logged in
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href={ShowUserAction $ get #id user}>Profile</a>
+            <a class="dropdown-item" href={DeleteSessionAction }>Log out</a>
+        </div>
+    </a>
+|]
+userDropdown Nothing = [hsx|
+    <a class="dropdown" href="#">
+        <button 
+            class="btn dropdown-toggle" 
+            type="button"
+            id="menuButton"
+            data-toggle="dropdown"
+        >
+            Not logged in
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href={NewUserAction}>Log in</a>
+            <a class="dropdown-item" href={NewSessionAction}>Register</a>
+        </div>
+    </a>
 |]
 
 stylesheets :: Html
