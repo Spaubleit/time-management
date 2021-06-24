@@ -23,7 +23,7 @@ defaultLayout inner = do
         </head>
         <body>
             <div class="container mt-4">
-                <header>
+                <header class="bg-light rounded mb-2">
                     <div class="navbar mr-auto">
                         <ul class="navbar-nav">
                             <li class="navbar-item">
@@ -43,23 +43,23 @@ defaultLayout inner = do
 
 userDropdown :: Maybe User -> Html 
 userDropdown (Just user) = [hsx|
-    <a class="dropdown" href="#">
+    <div class="dropdown">
         <button 
             class="btn dropdown-toggle" 
             type="button"
             id="menuButton"
             data-toggle="dropdown"
         >
-            Not logged in
+            {get #email user}
         </button>
         <div class="dropdown-menu">
             <a class="dropdown-item" href={ShowUserAction $ get #id user}>Profile</a>
-            <a class="dropdown-item" href={DeleteSessionAction }>Log out</a>
+            <a class="dropdown-item js-delete js-delete-no-confirm" href={DeleteSessionAction }>Log out</a>
         </div>
-    </a>
+    </div>
 |]
 userDropdown Nothing = [hsx|
-    <a class="dropdown" href="#">
+    <div class="dropdown">
         <button 
             class="btn dropdown-toggle" 
             type="button"
@@ -69,10 +69,10 @@ userDropdown Nothing = [hsx|
             Not logged in
         </button>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href={NewUserAction}>Log in</a>
-            <a class="dropdown-item" href={NewSessionAction}>Register</a>
+            <a class="dropdown-item" href={NewUserAction}>Register</a>
+            <a class="dropdown-item" href={NewSessionAction}>Log in</a>
         </div>
-    </a>
+    </div>
 |]
 
 stylesheets :: Html

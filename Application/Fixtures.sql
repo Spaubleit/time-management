@@ -16,6 +16,7 @@ SET SESSION AUTHORIZATION DEFAULT;
 
 ALTER TABLE public.shifts DISABLE TRIGGER ALL;
 
+INSERT INTO public.shifts (id, name, start, shift_interval, duration) VALUES ('bcbdc770-9dee-47a8-83b4-fd46539cc25d', 'oeu', '1858-11-17', 7, 5);
 
 
 ALTER TABLE public.shifts ENABLE TRIGGER ALL;

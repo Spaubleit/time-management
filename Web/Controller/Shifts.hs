@@ -23,16 +23,24 @@ instance Controller ShiftsController where
 
     action EditShiftAction { shiftId } = do
         shift <- fetch shiftId
+        users <- shift |> get #users |> fetch
+        workers <- fetchWorkers
         render EditView { .. }
 
     action UpdateShiftAction { shiftId } = do
         shift <- fetch shiftId
+        users <- shift |> get #users |> fetch
+        workers <- fetchWorkers
+
+        let userIds = paramList @(Id User) "users"        
+
         shift
             |> buildShift
             |> ifValid \case
                 Left shift -> render EditView { .. }
                 Right shift -> do
                     shift <- shift |> updateRecord
+                    mapM_ (updateUser shiftId) userIds
                     setSuccessMessage "Shift updated"
                     redirectTo EditShiftAction { .. }
 
@@ -62,8 +70,16 @@ buildShift shift = shift
     |> set #duration 5
     |> set #shiftInterval 7
 
+
 fetchWorkers :: (?modelContext :: ModelContext) => IO [User]
 fetchWorkers = query @User 
     |> filterWhere (#userRole, Worker)
     |> fetch
 
+updateUser :: (?modelContext :: ModelContext) => Id Shift -> Id User -> IO ()
+updateUser shiftId userId = do
+    user <- fetch (userId :: Id User)
+    user 
+        |> setJust #shiftId shiftId
+        |> updateRecord
+    pure ()

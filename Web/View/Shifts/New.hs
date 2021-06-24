@@ -50,7 +50,7 @@ renderForm shift users = formFor shift [hsx|
     {(dateField #start)}
     {(textField #shiftInterval)}
     {(textField #duration)}
-    <!-- {renderSelect users} -->
+    {renderSelect users}
     {submitButton}
 |]
 

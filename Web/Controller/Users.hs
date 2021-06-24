@@ -49,6 +49,7 @@ instance Controller UsersController where
                         |> set #passwordHash hashed
                         |> createRecord
                     setSuccessMessage "You have registered successfully"
+                    redirectTo CreateSessionAction 
                     redirectToPath "/"
 
     action DeleteUserAction { userId } = do
