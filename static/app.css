@@ -1,0 +1,13 @@
+.user-picker {
+    background: lightblue;
+}
+
+.user-picker .user {
+    border: 1px solid black;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.user-picker .user.selected {
+    background: red;
+}

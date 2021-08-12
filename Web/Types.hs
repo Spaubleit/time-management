@@ -43,3 +43,8 @@ data ShiftsController
     | UpdateShiftAction { shiftId :: !(Id Shift) }
     | DeleteShiftAction { shiftId :: !(Id Shift) }
     deriving (Eq, Show, Data)
+
+data RegistrationsController
+    = RegistrationsActions
+    | NewRegistrationAction
+    deriving (Eq, Show, Data)

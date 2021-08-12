@@ -11,11 +11,18 @@ import Web.Controller.Static
 import IHP.LoginSupport.Middleware
 import Web.Controller.Sessions
 import Web.Controller.Dashboard
+import Web.Controller.Registrations
+import IHP.ServerSideComponent.RouterFunctions
+import Web.Component.UserPicker
+import Web.Component.Counter
 
 instance FrontController WebApplication where
     controllers = 
         [ startPage DashboardAction 
+        , routeComponent @UserPickerState
+        , routeComponent @Counter
         , parseRoute @SessionsController 
+        , parseRoute @RegistrationsController
         -- Generator Marker
         , parseRoute @ShiftsController
         , parseRoute @UsersController

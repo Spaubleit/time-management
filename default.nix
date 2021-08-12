@@ -1,7 +1,7 @@
 let
     ihp = builtins.fetchGit {
         url = "https://github.com/digitallyinduced/ihp.git";
-        ref = "refs/tags/v0.11.0";
+        ref = "refs/tags/v0.13.1";
     };
     haskellEnv = import "${ihp}/NixSupport/default.nix" {
         ihp = ihp;
@@ -13,6 +13,7 @@ let
             hlint
             p.ihp
             dhall
+            qrcode-core
         ];
         otherDeps = p: with p; [
             # Native dependencies, e.g. imagemagick

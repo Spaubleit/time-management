@@ -4,6 +4,7 @@ import Generated.Types
 import Web.Types
 
 instance AutoRoute DashboardController 
+instance AutoRoute RegistrationsController
 
 -- Generator Marker
 instance AutoRoute StaticController
