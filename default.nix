@@ -15,6 +15,7 @@ let
             dhall
             qrcode-core
             qrcode-juicypixels
+            base64
         ];
         otherDeps = p: with p; [
             # Native dependencies, e.g. imagemagick

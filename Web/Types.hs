@@ -47,4 +47,5 @@ data ShiftsController
 data RegistrationsController
     = RegistrationsActions
     | NewRegistrationAction
+    | AddRegistrationAction
     deriving (Eq, Show, Data)

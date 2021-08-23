@@ -2,8 +2,12 @@ module Web.View.Registrations.Invite where
 
 import Web.View.Prelude
 
-data InviteView = InviteView { registration :: Registration }
+data InviteView = InviteView { url :: Maybe Text }
 
 instance View InviteView where
-    html InviteView {..} = [hsx|qr code here|]
+    html InviteView {..} = [hsx|
+        <img src={imageUrl}/>
+    |]
+        where
+            imageUrl = fromMaybe "" url
 
