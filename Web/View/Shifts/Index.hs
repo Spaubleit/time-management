@@ -5,15 +5,13 @@ data IndexView = IndexView { shifts :: [Shift] }
 
 instance View IndexView where
     html IndexView { .. } = [hsx|
-        <h1>Index <a href={pathTo NewShiftAction} class="btn btn-primary ml-4">+ New</a></h1>
+        <h1>Shifts <a href={pathTo NewShiftAction} class="btn btn-primary ml-4">+ New</a></h1>
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Shift</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <th>Name</th>
+                        <th colspan="3">Actions</th>
                     </tr>
                 </thead>
                 <tbody>{forEach shifts renderShift}</tbody>
@@ -23,11 +21,13 @@ instance View IndexView where
 
 
 renderShift :: Shift -> Html
-renderShift Shift {id, name} = [hsx|
+renderShift shift = [hsx|
     <tr>
-        <td>{name}</td>
+        <td>{get #name shift}</td>
         <td><a href={ShowShiftAction id}>Show</a></td>
         <td><a href={EditShiftAction id} class="text-muted">Edit</a></td>
         <td><a href={DeleteShiftAction id} class="js-delete text-muted">Delete</a></td>
     </tr>
 |]
+    where
+        id = get #id shift

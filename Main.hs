@@ -10,15 +10,12 @@ import IHP.FrameworkConfig
 import IHP.Job.Types
 import Web.FrontController
 import Web.Types
-import Admin.FrontController
-import Admin.Types
 import IHP.ScriptSupport
 import qualified Application.Script.CreateAdmin as CreateAdmin
 
 instance FrontController RootApplication where
     controllers = [
             mountFrontController WebApplication
-            , mountFrontController AdminApplication
         ]
 
 instance Worker RootApplication where

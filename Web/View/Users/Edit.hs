@@ -5,12 +5,6 @@ data EditView = EditView { user :: User }
 
 instance View EditView where
     html EditView { .. } = [hsx|
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={UsersAction}>Users</a></li>
-                <li class="breadcrumb-item active">Edit User</li>
-            </ol>
-        </nav>
         <h1>Edit User ({get #name user})</h1>
         {renderForm user}
     |]

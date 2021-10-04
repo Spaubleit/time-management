@@ -11,3 +11,27 @@
 .user-picker .user.selected {
     background: red;
 }
+
+.calendar {
+    display: grid;
+    grid-gap: 4px;
+    place-items: center;
+    grid-template-columns: repeat(7, max-content);
+}
+
+.day {
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.day.marked {
+    background: lightblue;
+}
+
+.day.current {
+    font-weight: bold;
+}

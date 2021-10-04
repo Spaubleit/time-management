@@ -19,6 +19,7 @@ instance Controller ShiftsController where
 
     action ShowShiftAction { shiftId } = do
         shift <- fetch shiftId
+        now <- getCurrentTime
         render ShowView { .. }
 
     action EditShiftAction { shiftId } = do

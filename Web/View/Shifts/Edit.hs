@@ -9,15 +9,9 @@ data EditView = EditView
 
 instance View EditView where
     html EditView { .. } = [hsx|
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={ShiftsAction}>Shifts</a></li>
-                <li class="breadcrumb-item active">Edit Shift</li>
-            </ol>
-        </nav>
-        <h1>Edit Shift</h1>
+        <h1>Edit Shift "{get #name shift}"</h1>
         {userNames users}
-        {renderForm shift workers}
+        {renderForm'' shift workers}
     |]
         where 
             userNames :: [User] -> [Text]
