@@ -47,5 +47,6 @@ data ShiftsController
 data RegistrationsController
     = RegistrationsActions
     | NewRegistrationAction
-    | AddRegistrationAction
+    | AddRegistrationAction { key :: !Text}
+    | CreateRegistrationAction { shiftId :: !(Id Shift) }
     deriving (Eq, Show, Data)

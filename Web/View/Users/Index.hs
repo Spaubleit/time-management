@@ -11,6 +11,7 @@ instance View IndexView where
                 <thead>
                     <tr>
                         <th>User</th>
+                        <th>Email</th>
                         <th>Role</th>
                         <th colspan="3">Actions</th>
                     </tr>
@@ -25,6 +26,7 @@ renderUser :: User -> Html
 renderUser user = [hsx|
     <tr>
         <td>{get #name user}</td>
+        <td>{get #email user}</td>
         <td>{get #userRole user}</td>
         <td><a href={ShowUserAction (get #id user)}>Show</a></td>
         <td><a href={EditUserAction (get #id user)} class="text-muted">Edit</a></td>

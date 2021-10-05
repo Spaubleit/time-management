@@ -10,13 +10,17 @@ data RegisterView = RegisterView { shift :: Maybe Shift}
 
 instance View RegisterView where
     html RegisterView {..} = [hsx|
-        <h1>{message}</h1>
-        {button}
+        <h2>{message}</h2>
+        {form}
     |]
         where
             message :: Text = case shift of
                 Nothing -> "There is no shift for you"
-                Just shift -> "Are you sure you want to register to " <> get #name shift <> "?"
-            button = case shift of
+                Just shift -> "Are you sure you want to register to '" <> get #name shift <> "'?"
+            form = case shift of
                 Nothing -> [hsx||]
-                Just shift -> [hsx|<button>test</button>|]
+                Just Shift { id } -> [hsx|
+                        <form method="POST" action={pathTo (CreateRegistrationAction id)}>
+                            <button class="btn btn-primary">Register</button>
+                        </form>
+                    |]

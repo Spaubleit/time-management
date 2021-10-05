@@ -27,7 +27,7 @@ instance Controller RegistrationsController where
         time <- getCurrentTime
         let key = time |> utctDay |> show |> encodeBase64
         let baseUrl = ?context |> getFrameworkConfig |> get #baseUrl
-        let url = (baseUrl <> pathTo AddRegistrationAction <> "?key=" <> key) |> createQRCode
+        let url = (baseUrl <> pathTo AddRegistrationAction { key }) |> createQRCode
                 |> fmap (toStrict . toPngDataUrlT 0 1)
         Log.debug $ "Key" <> key
         Log.debug $ "Before encode " <> show (time |> utctDay)
@@ -35,8 +35,7 @@ instance Controller RegistrationsController where
         users <- query @User |> fetch
         render InviteView {..}
 
-    action AddRegistrationAction = do
-        let key = param @Text "key"
+    action AddRegistrationAction { key } = do
         let day = key |> decodeBase64 |> fmap (read @Day . T.unpack)
         
         let day = do
@@ -55,5 +54,15 @@ instance Controller RegistrationsController where
         day |> \case
             Left error -> pure ()
             Right day -> render RegisterView {..}
+
+    action CreateRegistrationAction { shiftId } = do
+        let registration = newRecord @Registration 
+        now <- getCurrentTime 
+        registration
+            |> set #shiftId shiftId
+            |> set #userId (get #id currentUser)
+            |> set #start now
+            |> createRecord
+        redirectToPath "/"
 
         

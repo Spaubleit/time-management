@@ -6,6 +6,11 @@ data BossView = BossView
 
 instance View BossView where
     html BossView = [hsx|
-        <div>boss view</div>
-        <a href={ShiftsAction}>Shifts control</a>
+        <h1>Boss Dashboard</h1>
+        <div>
+            <a href={ShiftsAction}>Shifts control</a>
+        </div>
+        <div>
+            <a href={NewRegistrationAction}>Registrations control</a>
+        </div>
     |]

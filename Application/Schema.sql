@@ -23,8 +23,8 @@ CREATE TABLE registrations (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
     user_id UUID NOT NULL,
     shift_id UUID NOT NULL,
-    "start" DATE NOT NULL,
-    stop DATE DEFAULT NULL
+    "start" TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+    stop TIMESTAMP WITH TIME ZONE
 );
 CREATE INDEX registrations_user_id_index ON registrations (user_id);
 CREATE INDEX registrations_shift_id_index ON registrations (shift_id);
