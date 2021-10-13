@@ -4,7 +4,6 @@ import Web.View.Prelude
 import Web.Component.UserPicker
 import Web.Component.Counter
 import IHP.ServerSideComponent.ViewFunctions
-import Data.ByteString.Lazy.Internal
 
 data RegisterView = RegisterView { shift :: Maybe Shift}
 

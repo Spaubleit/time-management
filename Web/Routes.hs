@@ -15,3 +15,12 @@ instance AutoRoute UsersController
 
 instance AutoRoute ShiftsController
 
+
+instance AutoRoute DepartmentsController
+
+
+instance AutoRoute VacationsController
+
+
+instance AutoRoute ReplacementsController
+

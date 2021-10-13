@@ -5,6 +5,9 @@ import Web.Controller.Prelude
 import Web.View.Layout (defaultLayout)
 
 -- Controller Imports
+import Web.Controller.Replacements
+import Web.Controller.Vacations
+import Web.Controller.Departments
 import Web.Controller.Shifts
 import Web.Controller.Users
 import Web.Controller.Static
@@ -24,6 +27,9 @@ instance FrontController WebApplication where
         , parseRoute @SessionsController 
         , parseRoute @RegistrationsController
         -- Generator Marker
+        , parseRoute @ReplacementsController
+        , parseRoute @VacationsController
+        , parseRoute @DepartmentsController
         , parseRoute @ShiftsController
         , parseRoute @UsersController
         ]

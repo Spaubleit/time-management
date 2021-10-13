@@ -50,3 +50,32 @@ data RegistrationsController
     | AddRegistrationAction { key :: !Text}
     | CreateRegistrationAction { shiftId :: !(Id Shift) }
     deriving (Eq, Show, Data)
+data DepartmentsController
+    = DepartmentsAction
+    | NewDepartmentAction
+    | ShowDepartmentAction { departmentId :: !(Id Department) }
+    | CreateDepartmentAction
+    | EditDepartmentAction { departmentId :: !(Id Department) }
+    | UpdateDepartmentAction { departmentId :: !(Id Department) }
+    | DeleteDepartmentAction { departmentId :: !(Id Department) }
+    deriving (Eq, Show, Data)
+
+data VacationsController
+    = VacationsAction
+    | NewVacationAction
+    | ShowVacationAction { vacationId :: !(Id Vacation) }
+    | CreateVacationAction
+    | EditVacationAction { vacationId :: !(Id Vacation) }
+    | UpdateVacationAction { vacationId :: !(Id Vacation) }
+    | DeleteVacationAction { vacationId :: !(Id Vacation) }
+    deriving (Eq, Show, Data)
+
+data ReplacementsController
+    = ReplacementsAction
+    | NewReplacementAction
+    | ShowReplacementAction { replacementId :: !(Id Replacement) }
+    | CreateReplacementAction
+    | EditReplacementAction { replacementId :: !(Id Replacement) }
+    | UpdateReplacementAction { replacementId :: !(Id Replacement) }
+    | DeleteReplacementAction { replacementId :: !(Id Replacement) }
+    deriving (Eq, Show, Data)

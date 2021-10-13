@@ -6,13 +6,21 @@ import Web.View.Dashboards.Admin
 import Web.View.Dashboards.Visitor
 import Web.View.Dashboards.Worker
 import Web.View.Dashboards.Welcome
+import Data.Text.Encoding
 
 instance Controller DashboardController where
     action DashboardAction = do
-        currentUserOrNothing |> \case
-            Just user -> get #userRole user |> \case
+        case currentUserOrNothing of
+            Nothing -> render WelcomeView
+            Just user@User { id, userRole, shiftId } -> case userRole of
                 Superadmin -> render AdminView 
                 Boss -> render BossView 
-                Worker -> render WorkerView 
                 Visitor -> render VisitorView 
-            Nothing -> render WelcomeView
+                Worker -> do 
+                    -- test <- user >>= fetchRelated #shiftId
+                    -- registration <- query @Registration 
+                    --     |> filterWhereSql (#shiftId, "= 0")
+                    --     -- |> filterWhereSql (#shiftId, encodeUtf8 $ " = " <> tshow shiftId)
+                    --     |> filterWhere (#userId, id)
+                    --     |> fetchOneOrNothing
+                    render WorkerView { registration = Nothing }

@@ -13,6 +13,7 @@ instance Controller UsersController where
 
     action NewUserAction = do
         let user = newRecord
+        let x = isNew user
         render NewView { .. }
 
     action ShowUserAction { userId } = do

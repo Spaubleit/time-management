@@ -2,7 +2,9 @@ module Web.View.Dashboards.Worker where
 
 import Web.View.Prelude
 
-data WorkerView = WorkerView
+data WorkerView = WorkerView { registration :: Maybe Registration }
 
 instance View WorkerView where
-    html WorkerView = [hsx|<div>worker dashboard</div>|]
+    html WorkerView {..} = [hsx|
+        <h1>Worker Dashboard</h1>
+    |]
