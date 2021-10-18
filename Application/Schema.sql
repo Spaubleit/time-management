@@ -43,11 +43,13 @@ CREATE TABLE vacations (
 );
 CREATE INDEX vacations_user_id_index ON vacations (user_id);
 CREATE INDEX users_department_id_index ON users (department_id);
+CREATE TYPE replacement_states AS ENUM ('replacement_request', 'replacement_approved');
 CREATE TABLE replacements (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
     replacable_id UUID NOT NULL,
     substitute_id UUID NOT NULL,
-    date DATE DEFAULT NOW() NOT NULL
+    date DATE DEFAULT NOW() NOT NULL,
+    state replacement_states NOT NULL
 );
 ALTER TABLE departments ADD CONSTRAINT departments_ref_manager_id FOREIGN KEY (manager_id) REFERENCES users (id) ON DELETE NO ACTION;
 ALTER TABLE registrations ADD CONSTRAINT registrations_ref_shift_id FOREIGN KEY (shift_id) REFERENCES shifts (id) ON DELETE NO ACTION;

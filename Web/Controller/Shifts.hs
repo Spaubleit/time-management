@@ -20,6 +20,7 @@ instance Controller ShiftsController where
     action ShowShiftAction { shiftId } = do
         shift <- fetch shiftId
         now <- getCurrentTime
+        let today = get #utctDay now
         render ShowView { .. }
 
     action EditShiftAction { shiftId } = do

@@ -76,7 +76,6 @@ data ReplacementsController
     | NewReplacementAction
     | ShowReplacementAction { replacementId :: !(Id Replacement) }
     | CreateReplacementAction
-    | ConfirmReplacementAction { replacementId :: !(Id Replacement) }
     | UpdateReplacementAction { replacementId :: !(Id Replacement) }
     | DeleteReplacementAction { replacementId :: !(Id Replacement) }
     deriving (Eq, Show, Data)

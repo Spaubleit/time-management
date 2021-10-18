@@ -35,3 +35,15 @@
 .day.current {
     font-weight: bold;
 }
+
+.replacements {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.replacements .replacement {
+    background: lightgoldenrodyellow;
+    border-radius: 4px;
+    padding: 20px;
+}
