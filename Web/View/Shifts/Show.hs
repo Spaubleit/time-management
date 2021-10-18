@@ -15,6 +15,7 @@ instance View ShowView where
         <h1>Show Shift</h1>
         <div>{get #name shift}</div>
         {renderCalendar now shift}
+        <a href={NewRegistrationAction}>Create registration</a>
     |]
 
 data Interval = Interval

@@ -24,6 +24,9 @@ ALTER TABLE public.shifts ENABLE TRIGGER ALL;
 
 ALTER TABLE public.users DISABLE TRIGGER ALL;
 
+INSERT INTO public.users (id, name, email, password_hash, failed_login_attempts, locked_at, user_role, shift_id, department_id) VALUES ('63eb9af7-6042-425a-9754-2b618e0ca774', 'admin', 'spaubleit@protonmail.com', 'sha256|17|mAXBOgaAFdKwR70WdW+AbQ==|qd01HWuMzYzakFEbvZ5sjqMuL+mGTAuJRMCGqoFmzxw=', 0, NULL, 'superadmin', NULL, NULL);
+INSERT INTO public.users (id, name, email, password_hash, failed_login_attempts, locked_at, user_role, shift_id, department_id) VALUES ('63f87688-522b-4621-990f-1a75d42308b7', 'worker', 'worker@gmail.com', 'sha256|17|IJvqe6fGWqMEeZngXsP6uw==|ilQM7btEnqkbOShya7eNctT2uSqpmsAgObPvxN3WM/s=', 0, NULL, 'worker', NULL, NULL);
+INSERT INTO public.users (id, name, email, password_hash, failed_login_attempts, locked_at, user_role, shift_id, department_id) VALUES ('2ab97e54-07d7-46ec-971d-9acbc2fad55a', 'boss', 'boss@gmail.com', 'sha256|17|BzTlvoTtNcq13YEpntCFdw==|5ngywNGTHH/buTehwWeY4UXIdnGerF3STwfiMHx0aIg=', 0, NULL, 'boss', NULL, NULL);
 
 
 ALTER TABLE public.users ENABLE TRIGGER ALL;
@@ -31,6 +34,7 @@ ALTER TABLE public.users ENABLE TRIGGER ALL;
 
 ALTER TABLE public.departments DISABLE TRIGGER ALL;
 
+INSERT INTO public.departments (id, name, manager_id) VALUES ('3dafdb7c-2982-4144-b845-2e5ed0502f7a', 'Test department', '2ab97e54-07d7-46ec-971d-9acbc2fad55a');
 
 
 ALTER TABLE public.departments ENABLE TRIGGER ALL;
@@ -38,11 +42,16 @@ ALTER TABLE public.departments ENABLE TRIGGER ALL;
 
 ALTER TABLE public.registrations DISABLE TRIGGER ALL;
 
-INSERT INTO public.registrations (id, user_id, shift_id, start, stop) VALUES ('e12fc3e7-753f-45b2-bd7b-4842e55af1b5', 'fbf964fd-8f50-4b3a-9fb5-3e880f348f69', '50476fe9-6378-44f0-8af4-313e2f557e7e', '2021-10-05 00:00:00+03', NULL);
-INSERT INTO public.registrations (id, user_id, shift_id, start, stop) VALUES ('0919e5bf-019e-4986-9480-e3cbdeffaad0', 'fbf964fd-8f50-4b3a-9fb5-3e880f348f69', '50476fe9-6378-44f0-8af4-313e2f557e7e', '2021-10-05 18:36:14.157139+03', NULL);
 
 
 ALTER TABLE public.registrations ENABLE TRIGGER ALL;
+
+
+ALTER TABLE public.replacements DISABLE TRIGGER ALL;
+
+
+
+ALTER TABLE public.replacements ENABLE TRIGGER ALL;
 
 
 ALTER TABLE public.vacations DISABLE TRIGGER ALL;

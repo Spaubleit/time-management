@@ -50,6 +50,7 @@ data RegistrationsController
     | AddRegistrationAction { key :: !Text}
     | CreateRegistrationAction { shiftId :: !(Id Shift) }
     deriving (Eq, Show, Data)
+
 data DepartmentsController
     = DepartmentsAction
     | NewDepartmentAction
@@ -75,7 +76,13 @@ data ReplacementsController
     | NewReplacementAction
     | ShowReplacementAction { replacementId :: !(Id Replacement) }
     | CreateReplacementAction
-    | EditReplacementAction { replacementId :: !(Id Replacement) }
+    | ConfirmReplacementAction { replacementId :: !(Id Replacement) }
     | UpdateReplacementAction { replacementId :: !(Id Replacement) }
     | DeleteReplacementAction { replacementId :: !(Id Replacement) }
+    deriving (Eq, Show, Data)
+
+data StatisticsController
+    = GeneralStatistics
+    | UserStatistics { userId :: !(Id User)}
+    | DepartmentStatistics { departmentId :: !(Id Department)}
     deriving (Eq, Show, Data)

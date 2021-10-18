@@ -3,8 +3,8 @@ module Web.Controller.Replacements where
 import Web.Controller.Prelude
 import Web.View.Replacements.Index
 import Web.View.Replacements.New
-import Web.View.Replacements.Edit
 import Web.View.Replacements.Show
+import Web.View.Replacements.Confirm
 
 instance Controller ReplacementsController where
     action ReplacementsAction = do
@@ -12,30 +12,33 @@ instance Controller ReplacementsController where
         render IndexView { .. }
 
     action NewReplacementAction = do
-        let replacement = newRecord
+        let replacement = newRecord 
+                |> set #replacableId currentUserId
+        users <- fetchSubstituteUsers currentUser
         render NewView { .. }
 
     action ShowReplacementAction { replacementId } = do
         replacement <- fetch replacementId
         render ShowView { .. }
 
-    action EditReplacementAction { replacementId } = do
+    action ConfirmReplacementAction { replacementId } = do
         replacement <- fetch replacementId
-        render EditView { .. }
+        render ConfirmView { .. }
 
     action UpdateReplacementAction { replacementId } = do
         replacement <- fetch replacementId
         replacement
             |> buildReplacement
             |> ifValid \case
-                Left replacement -> render EditView { .. }
+                Left replacement -> render ConfirmView { .. }
                 Right replacement -> do
                     replacement <- replacement |> updateRecord
                     setSuccessMessage "Replacement updated"
-                    redirectTo EditReplacementAction { .. }
+                    redirectTo ConfirmReplacementAction { .. }
 
     action CreateReplacementAction = do
         let replacement = newRecord @Replacement
+        users <- fetchSubstituteUsers currentUser
         replacement
             |> buildReplacement
             |> ifValid \case
@@ -43,13 +46,19 @@ instance Controller ReplacementsController where
                 Right replacement -> do
                     replacement <- replacement |> createRecord
                     setSuccessMessage "Replacement created"
-                    redirectTo ReplacementsAction
+                    redirectToPath ""
 
     action DeleteReplacementAction { replacementId } = do
         replacement <- fetch replacementId
         deleteRecord replacement
         setSuccessMessage "Replacement deleted"
-        redirectTo ReplacementsAction
+        redirectToPath ""
 
 buildReplacement replacement = replacement
     |> fill @["replacableId","substituteId"]
+
+fetchSubstituteUsers :: (?modelContext :: ModelContext) => User -> IO [User]
+fetchSubstituteUsers User { id, departmentId } = query @User 
+    |> filterWhere (#departmentId, departmentId)
+    |> filterWhereNot (#id, id)
+    |> fetch

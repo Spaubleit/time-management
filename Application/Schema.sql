@@ -9,7 +9,7 @@ CREATE TABLE users (
     locked_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,
     user_role roles DEFAULT 'visitor' NOT NULL,
     shift_id UUID,
-    department_id UUID NOT NULL
+    department_id UUID
 );
 CREATE TABLE shifts (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
@@ -25,7 +25,8 @@ CREATE TABLE registrations (
     user_id UUID NOT NULL,
     shift_id UUID NOT NULL,
     "start" TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
-    stop TIMESTAMP WITH TIME ZONE
+    stop TIMESTAMP WITH TIME ZONE,
+    "day" DATE NOT NULL
 );
 CREATE INDEX registrations_user_id_index ON registrations (user_id);
 CREATE INDEX registrations_shift_id_index ON registrations (shift_id);
@@ -45,7 +46,8 @@ CREATE INDEX users_department_id_index ON users (department_id);
 CREATE TABLE replacements (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
     replacable_id UUID NOT NULL,
-    substitute_id UUID NOT NULL
+    substitute_id UUID NOT NULL,
+    date DATE DEFAULT NOW() NOT NULL
 );
 ALTER TABLE departments ADD CONSTRAINT departments_ref_manager_id FOREIGN KEY (manager_id) REFERENCES users (id) ON DELETE NO ACTION;
 ALTER TABLE registrations ADD CONSTRAINT registrations_ref_shift_id FOREIGN KEY (shift_id) REFERENCES shifts (id) ON DELETE NO ACTION;

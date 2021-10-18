@@ -1,23 +1,15 @@
 module Web.View.Replacements.New where
+
 import Web.View.Prelude
 
-data NewView = NewView { replacement :: Replacement }
+data NewView = NewView 
+    { replacement :: Replacement 
+    , users :: [User]
+    }
 
 instance View NewView where
-    html NewView { .. } = [hsx|
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={ReplacementsAction}>Replacements</a></li>
-                <li class="breadcrumb-item active">New Replacement</li>
-            </ol>
-        </nav>
-        <h1>New Replacement</h1>
-        {renderForm replacement}
+    html NewView {..} = formFor replacement [hsx|
+        {dateField #date}
+        {selectField #substituteId users}
+        {submitButton { label = "Create replacement request"}}
     |]
-
-renderForm :: Replacement -> Html
-renderForm replacement = formFor replacement [hsx|
-    {(textField #replacableId)}
-    {(textField #substituteId)}
-    {submitButton}
-|]

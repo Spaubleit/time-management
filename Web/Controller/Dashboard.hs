@@ -10,11 +10,16 @@ import Data.Text.Encoding
 
 instance Controller DashboardController where
     action DashboardAction = do
+        now <- getCurrentTime 
         case currentUserOrNothing of
             Nothing -> render WelcomeView
-            Just user@User { id, userRole, shiftId } -> case userRole of
+            Just user@User { id, userRole, shiftId, departmentId } -> case userRole of
                 Superadmin -> render AdminView 
-                Boss -> render BossView 
+                Boss -> do
+                    registrations <- query @Registration 
+                        |> filterWhere (#day, get #utctDay now)
+                        |> fetch >>= collectionFetchRelated #userId
+                    render BossView { .. }
                 Visitor -> render VisitorView 
                 Worker -> do 
                     -- test <- user >>= fetchRelated #shiftId

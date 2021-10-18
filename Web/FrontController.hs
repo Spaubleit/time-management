@@ -11,6 +11,7 @@ import Web.Controller.Departments
 import Web.Controller.Shifts
 import Web.Controller.Users
 import Web.Controller.Static
+import Web.Controller.Statistics
 import IHP.LoginSupport.Middleware
 import Web.Controller.Sessions
 import Web.Controller.Dashboard
@@ -26,6 +27,7 @@ instance FrontController WebApplication where
         , routeComponent @Counter
         , parseRoute @SessionsController 
         , parseRoute @RegistrationsController
+        , parseRoute @StatisticsController
         -- Generator Marker
         , parseRoute @ReplacementsController
         , parseRoute @VacationsController

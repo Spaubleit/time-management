@@ -12,3 +12,8 @@ import Generated.Types
 import Web.Types
 import Web.Routes ()
 import Application.Helper.View
+
+instance CanSelect User where
+    type SelectValue User = Id User
+    selectValue User { id } = id
+    selectLabel User { name } = name

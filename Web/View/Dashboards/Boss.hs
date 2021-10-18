@@ -2,10 +2,10 @@ module Web.View.Dashboards.Boss where
 
 import Web.View.Prelude
 
-data BossView = BossView
+data BossView = BossView { registrations :: [Include "userId" Registration]}
 
 instance View BossView where
-    html BossView = [hsx|
+    html BossView { registrations } = [hsx|
         <h1>Boss Dashboard</h1>
         <div>
             <a href={ShiftsAction}>Shifts control</a>
@@ -13,4 +13,13 @@ instance View BossView where
         <div>
             <a href={NewRegistrationAction}>Registrations control</a>
         </div>
+        <div>
+            <h2>Active registrations</h2>
+            {forEach registrations renderRegistration}
+        </div>
     |]
+
+renderRegistration :: Include "userId" Registration -> Html
+renderRegistration registration = [hsx|
+    {registration}
+|]

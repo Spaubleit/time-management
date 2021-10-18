@@ -1,23 +1,20 @@
 module Web.View.Departments.New where
 import Web.View.Prelude
 
-data NewView = NewView { department :: Department }
+data NewView = NewView 
+    { department :: Department 
+    , managers :: [User]
+    }
 
 instance View NewView where
     html NewView { .. } = [hsx|
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={DepartmentsAction}>Departments</a></li>
-                <li class="breadcrumb-item active">New Department</li>
-            </ol>
-        </nav>
         <h1>New Department</h1>
-        {renderForm department}
+        {renderForm department managers}
     |]
 
-renderForm :: Department -> Html
-renderForm department = formFor department [hsx|
+renderForm :: Department -> [User] -> Html
+renderForm department managers = formFor department [hsx|
     {(textField #name)}
-    {(textField #managerId)}
+    {selectField #managerId managers}
     {submitButton}
 |]
