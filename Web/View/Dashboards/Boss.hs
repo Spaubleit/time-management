@@ -14,6 +14,9 @@ instance View BossView where
             <a href={NewRegistrationAction}>Registrations control</a>
         </div>
         <div>
+            <a href="">Vacations control</a>
+        </div>
+        <div>
             <h2>Active registrations</h2>
             {forEach registrations renderRegistration}
         </div>
