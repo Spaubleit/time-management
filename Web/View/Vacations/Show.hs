@@ -1,16 +1,16 @@
 module Web.View.Vacations.Show where
 import Web.View.Prelude
 
-data ShowView = ShowView { vacation :: Vacation }
+data ShowView = ShowView { vacation :: Vacation, user :: User }
 
 instance View ShowView where
     html ShowView { .. } = [hsx|
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href={VacationsAction}>Vacations</a></li>
-                <li class="breadcrumb-item active">Show Vacation</li>
-            </ol>
-        </nav>
         <h1>Show Vacation</h1>
-        <p>{vacation}</p>
+        Requester: <b>{get #name user}</b><br/>
+        From: <b>{start}</b><br/>
+        To: <b>{stop}</b><br/>
+        {renderCalendar start [start .. stop]}
+        <a href={DeleteVacationAction (get #id vacation)} class="btn btn-primary js-delete">Delete vacation</a>
     |]
+        where
+            Vacation { start, stop } = vacation

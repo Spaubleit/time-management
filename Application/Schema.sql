@@ -35,15 +35,16 @@ CREATE TABLE departments (
     name TEXT NOT NULL,
     manager_id UUID NOT NULL
 );
+CREATE TYPE replacement_states AS ENUM ('replacement_request', 'replacement_approved', 'replacement_rejected');
 CREATE TABLE vacations (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
     user_id UUID NOT NULL,
     "start" DATE NOT NULL,
-    stop DATE NOT NULL
+    stop DATE NOT NULL,
+    state replacement_states NOT NULL
 );
 CREATE INDEX vacations_user_id_index ON vacations (user_id);
 CREATE INDEX users_department_id_index ON users (department_id);
-CREATE TYPE replacement_states AS ENUM ('replacement_request', 'replacement_approved');
 CREATE TABLE replacements (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
     replacable_id UUID NOT NULL,
